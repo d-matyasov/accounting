@@ -61,6 +61,7 @@
 <script setup>
 
 import { ref, watch } from 'vue'
+import { sort, getSortIcon } from '@/components/index'
 import useStore from '@/store'
 
 const store = useStore.useQuickAddonStore()

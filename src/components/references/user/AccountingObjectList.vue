@@ -83,6 +83,7 @@
 <script setup>
 import { ref } from 'vue'
 import AccountingObjectEditDialog from './AccountingObjectEditDialog.vue'
+import { sort, getSortIcon } from '@/components/index'
 import useStore from '@/store'
 import { toFormattedMonetaryUnit } from '@/common'
 

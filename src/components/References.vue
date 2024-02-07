@@ -61,7 +61,7 @@ const isAdmin = () => {
 
     const token = localStorage.getItem("jwtToken");
 
-    if (VueJwtDecode.decode(token).authorities.findIndex(f => f.authority == 'ADMIN') < 0) {
+    if (token == null || VueJwtDecode.decode(token).authorities.findIndex(f => f.authority == 'ADMIN') < 0) {
 
         return false
 

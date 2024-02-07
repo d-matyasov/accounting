@@ -131,8 +131,10 @@
 import { ref, computed } from 'vue'
 import OperationCategoryEditDialog from './OperationCategoryEditDialog.vue'
 import QuickAddonAddToListDialog from './QuickAddonAddToListDialog.vue'
+import { sort, getSortIcon } from '@/components/index'
 import useStore from '@/store'
 import axios from 'axios'
+import axiosInstance from '@/services/AxiosInstanceService'
 
 const store = useStore.useOperationCategoryStore()
 
@@ -183,19 +185,39 @@ const save = async data => {
 
 const removeRelation = async (item, addonItem) => {
 
-    const response = await axios.delete(`/api/operation-categories/${item.id}/quick-addons?ids=${addonItem.id}`)
+    await axiosInstance.delete(`/api/operation-categories/${item.id}/quick-addons?ids=${addonItem.id}`)
+        
+        .then(response => {
+            
+            item.quickAddonList = response.data
+            
+        })
 
-    item.quickAddonList = response.data
+        .catch(error => {
+
+        console.log(error)
+
+    })
 
 }
 
 const addRelation = async (item, addonItem) => {
 
-    const response = await axios.post(`/api/operation-categories/${item.id}/quick-addons`, [addonItem])
+    await axiosInstance.post(`/api/operation-categories/${item.id}/quick-addons`, [addonItem])
+        
+        .then(response => {
+            
+            item.quickAddonList = response.data
 
-    item.quickAddonList = response.data
+            itemToListEdit.value = null
+            
+        })
 
-    itemToListEdit.value = null
+        .catch(error => {
+
+        console.log(error)
+
+    })
 
 }
 

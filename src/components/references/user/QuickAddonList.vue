@@ -63,6 +63,7 @@
 
 import { ref } from 'vue'
 import QuickAddonEditDialog from './OperationCategoryEditDialog.vue'
+import { sort, getSortIcon } from '@/components/index'
 import useStore from '@/store'
 
 const store = useStore.useQuickAddonStore()

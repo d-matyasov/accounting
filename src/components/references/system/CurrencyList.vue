@@ -125,11 +125,19 @@ const create = () => {
 }
 
 const save = async data => {
+
+    checkAuthority()
+
     try {        
+
         await store.save(data)
+        
         editItem.value = null
+
     } catch (e) {
+        
         console.log(e)
+        
     }
 }
 

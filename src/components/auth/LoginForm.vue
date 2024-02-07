@@ -33,12 +33,18 @@
                 </v-row>
         </v-form>
     </v-card>
+
+    <info-dialog
+        :modelValue="infoMessage"
+        @update="e => infoMessage = e"/>
+
 </template>
   
 <script setup>
     import {ref} from 'vue';
     import AuthService from "@/services/AuthService";
     import router from "@/router";
+    import InfoDialog from '@/components/UI/InfoDialog.vue'
 
     const valid = ref(false)
 
@@ -53,31 +59,42 @@
         required: value => !!value || 'Обязательное поле'
         })
 
+    const infoMessage = ref(null)
+
     const login = () => {
 
-        AuthService.login(user.value).then((response) => {
+        AuthService.login(user.value)
+            .then((response) => {
 
-            var preAuthenticationRoutePath = null
-            
-            if (response.data.token) {
-
-                preAuthenticationRoutePath = window.localStorage.getItem("preAuthenticationRoutePath");
+                var preAuthenticationRoutePath = null
                 
-                window.localStorage.clear();
+                if (response.data.token) {
+
+                    preAuthenticationRoutePath = window.localStorage.getItem("preAuthenticationRoutePath");
+                    
+                    window.localStorage.clear();
+                    
+                    window.localStorage.setItem("jwtToken", response.data.token);
+                }
                 
-                window.localStorage.setItem("jwtToken", response.data.token);
-            }
+                if (!!preAuthenticationRoutePath) {
+
+                    router.push(preAuthenticationRoutePath);
+
+                } else {
+
+                    router.push("/operations")
+
+                }
+
+            })
+            .catch(error => {
+
+                infoMessage.value = "Пользователь с такими логином и паролем не найден"
             
-            if (!!preAuthenticationRoutePath) {
-
-                router.push(preAuthenticationRoutePath);
-
-            } else {
-
-                router.push("/operations")
-
-            }
-
-        });
+                console.log(error);
+            
+        })
+        ;
       }
   </script>

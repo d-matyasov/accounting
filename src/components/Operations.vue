@@ -311,6 +311,8 @@ const changeIsFact = async item => {
             
         })
 
+    get()
+
 }
 
 const changeDatePeriod = data => {

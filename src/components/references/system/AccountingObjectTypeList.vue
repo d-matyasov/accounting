@@ -113,24 +113,32 @@ const create = () => {
 
 checkAuthority()
 
-if (!!infoMessage.value) {
+    if (!!infoMessage.value) {
 
-    return
+        return
 
-} else {
+    } else {
 
-    editItem.value = {}
+        editItem.value = {}
 
-}
+    }
 
 }
 
 const save = async data => {
+
+    checkAuthority()
+
     try {        
+
         await store.save(data)
+
         editingItem.value = null
+
     } catch (e) {
+
         console.log(e)
+        
     }
 }
 

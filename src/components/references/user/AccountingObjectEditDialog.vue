@@ -63,7 +63,8 @@
                         </v-col>
                         <v-col  class="pa-1" cols="6">
                             <date-field
-                                label="Дата открытия"
+                                label="Дата открытия*"
+                                :rules="[rules.required]"
                                 v-model="data.openDate"
                                 :datePicker="false" />
                         </v-col>
@@ -77,6 +78,7 @@
                             <amount-input
                                 v-model="data.startAmount"
                                 label="Начальная сумма"
+                                :rules="[rules.required]"
                                 clearable
                             />
                         </v-col>
@@ -95,6 +97,7 @@
                                 item-value="id"
                                 item-title="name"                                
                                 label="Валюта"
+                                :rules="[rules.required]"
                                 clearable
                                 />
                         </v-col>
@@ -105,6 +108,7 @@
                                 item-value="id"
                                 item-title="name"
                                 label="Тип объекта учёта"
+                                :rules="[rules.required]"
                                 clearable
                                 />
                         </v-col>
